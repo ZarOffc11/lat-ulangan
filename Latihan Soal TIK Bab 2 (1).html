@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Latihan Soal TIK Bab 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eaf2fc; --grid:rgba(31,95,191,.08); --surface:#ffffff; --ink:#0e2747; --muted:#4d607a;
+  --line:#cddcf0; --edge:#174c9c; --bar:#dbe7f6; --titlebar:#d9e7fa;
+  --primary:#1f5fbf; --on-primary:#ffffff;
+  --c-kom:#1f5fbf; --c-cari:#0f8a7e; --c-fitur:#e0501f; --c-int:#7048c4;
+  --ok:#0f7a56; --okbg:#ddf4ea; --bad:#b92f18; --badbg:#fde6e0; --focus:#e0501f;
+  --font-d:'Bricolage Grotesque','Trebuchet MS','Segoe UI',system-ui,sans-serif;
+  --font-b:'Figtree','Segoe UI',system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1424; --grid:rgba(120,170,255,.07); --surface:#102039; --ink:#e9f1fc; --muted:#9fb3cf;
+    --line:#223a5c; --edge:#4a7fd0; --bar:#1a2e4d; --titlebar:#17305a;
+    --primary:#6ba5ff; --on-primary:#071a35;
+    --c-kom:#6ba5ff; --c-cari:#43c9ba; --c-fitur:#ff8a5c; --c-int:#aa8cff;
+    --ok:#4fd1a1; --okbg:#0f3b2f; --bad:#ff927e; --badbg:#44201a; --focus:#ffb08f;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1424; --grid:rgba(120,170,255,.07); --surface:#102039; --ink:#e9f1fc; --muted:#9fb3cf;
+  --line:#223a5c; --edge:#4a7fd0; --bar:#1a2e4d; --titlebar:#17305a;
+  --primary:#6ba5ff; --on-primary:#071a35;
+  --c-kom:#6ba5ff; --c-cari:#43c9ba; --c-fitur:#ff8a5c; --c-int:#aa8cff;
+  --ok:#4fd1a1; --okbg:#0f3b2f; --bad:#ff927e; --badbg:#44201a; --focus:#ffb08f;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{
+  scroll-padding-top:env(safe-area-inset-top,0px);
+  background-color:var(--bg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:36px 36px;
+}
+body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-b);font-size:1rem;line-height:1.5;-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding:14px 18px 64px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 16px;color:var(--muted);font-size:.92rem;font-weight:600}
+.icon-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:600;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.icon-btn:hover{border-color:var(--edge)}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+h1{font-family:var(--font-d);font-weight:800;font-size:clamp(2.1rem,8vw,3.4rem);line-height:1.03;letter-spacing:-.02em;margin:6px 0 12px;max-width:12em}
+.lead{max-width:34em;color:var(--muted);font-size:1.05rem;line-height:1.55;margin:0 0 26px}
+
+/* jendela */
+.win{background:var(--surface);border:2px solid var(--edge);border-radius:14px;box-shadow:6px 6px 0 var(--edge);overflow:hidden}
+.tb{display:flex;align-items:center;gap:12px;padding:9px 14px;background:var(--titlebar);border-bottom:2px solid var(--edge);font-weight:700;font-size:.92rem}
+.dots{display:flex;gap:6px;flex:none}
+.dots i{width:11px;height:11px;border-radius:50%;display:block}
+.dots i:nth-child(1){background:#e9552a}.dots i:nth-child(2){background:#f2b632}.dots i:nth-child(3){background:#1fa595}
+.tb .ttl{flex:1;min-width:0;display:flex;align-items:center;gap:8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.tb .sw{width:12px;height:12px;border-radius:3px;background:var(--tc,var(--primary));flex:none}
+.tb .meta{color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
+.body{padding:20px}
+
+/* pengaturan */
+fieldset{border:0;margin:0 0 24px;padding:0;min-width:0}
+legend{font-weight:700;font-size:1.02rem;margin:0 0 10px;padding:0}
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.tcard{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:12px 14px 12px 12px;border:2px solid var(--line);border-left:8px solid var(--tc);border-radius:10px;background:var(--surface);color:var(--ink);font-size:1rem;cursor:pointer}
+.tcard[aria-pressed="true"]{border-color:var(--tc);background:color-mix(in srgb,var(--tc) 10%,var(--surface))}
+.tcard small{display:block;color:var(--muted);font-size:.88rem;font-weight:500}
+.tcard b{font-weight:700;line-height:1.3;display:block}
+.box{width:22px;height:22px;flex:none;border:2px solid var(--muted);border-radius:6px;display:grid;place-items:center;color:var(--surface);margin-top:1px}
+.tcard[aria-pressed="true"] .box{background:var(--tc);border-color:var(--tc)}
+.tcard .box svg{opacity:0}
+.tcard[aria-pressed="true"] .box svg{opacity:1}
+.seg{display:flex;flex-wrap:wrap;gap:10px}
+.seg button{flex:1 1 90px;padding:11px 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-size:1rem;font-weight:600;cursor:pointer}
+.seg button[aria-checked="true"]{border-color:var(--edge);background:var(--titlebar)}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.modes button{text-align:left;padding:12px 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-size:1rem;cursor:pointer}
+.modes button[aria-checked="true"]{border-color:var(--edge);background:var(--titlebar)}
+.modes b{display:block;font-weight:700}
+.modes span{color:var(--muted);font-size:.92rem}
+.note{color:var(--muted);font-size:.92rem;margin:10px 0 0}
+
+.btn{font-size:1rem;font-weight:700;padding:13px 22px;border-radius:10px;border:2px solid var(--edge);background:var(--primary);color:var(--on-primary);cursor:pointer;box-shadow:3px 3px 0 var(--edge);transition:transform .08s,box-shadow .08s}
+.btn:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--edge)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink)}
+.link-btn{background:none;border:0;color:var(--muted);font-size:1rem;font-weight:600;text-decoration:underline;cursor:pointer;padding:10px 4px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+
+/* kuis */
+.strip{display:flex;gap:2px;margin:0 0 14px}
+.strip i{flex:1;height:12px;border-radius:3px;background:var(--bar);border:1px solid var(--line);display:block}
+.strip i.ok{background:var(--ok);border-color:var(--ok)}
+.strip i.bad{background:var(--bad);border-color:var(--bad)}
+.strip i.ans{background:var(--primary);border-color:var(--primary);opacity:.55}
+.strip i.cur{outline:2px solid var(--ink);outline-offset:1px;background:var(--surface)}
+.scoreline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.92rem;color:var(--muted);font-weight:600;margin:0 0 14px}
+.q{font-family:var(--font-d);font-weight:600;font-size:clamp(1.25rem,4.4vw,1.6rem);line-height:1.28;letter-spacing:-.01em;margin:0 0 18px}
+.hint{color:var(--muted);font-size:.95rem;margin:-8px 0 16px}
+.opts,.slot,.pool{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.opt,.chip{width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;padding:13px 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-size:1rem;line-height:1.4;cursor:pointer}
+.opt:hover:not(:disabled),.chip:hover:not(:disabled){border-color:var(--edge)}
+.opt:disabled,.chip:disabled{cursor:default;color:var(--ink)}
+.opt .k,.chip .n{flex:none;width:26px;height:26px;border-radius:7px;background:var(--titlebar);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.opt[aria-pressed="true"]{border-color:var(--edge);background:var(--titlebar)}
+.opt.ok,.chip.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad,.chip.bad{border-color:var(--bad);background:var(--badbg)}
+.opt.dim{opacity:.6}
+.st{margin-left:auto;flex:none;width:22px;height:22px;display:grid;place-items:center}
+.opt.ok .st,.chip.ok .st{color:var(--ok)}
+.opt.bad .st,.chip.bad .st{color:var(--bad)}
+.lab{font-weight:700;font-size:.95rem;margin:0 0 8px}
+.slot{padding:10px;border:2px dashed var(--line);border-radius:10px;margin-bottom:18px}
+.empty{color:var(--muted);font-size:.95rem;padding:4px 2px}
+.fb{margin-top:16px;padding:14px 16px;border-radius:10px;border:2px solid;line-height:1.5;animation:pop .22s ease-out}
+.fb.ok{border-color:var(--ok);background:var(--okbg)}
+.fb.bad{border-color:var(--bad);background:var(--badbg)}
+.fb strong{display:block;font-family:var(--font-d);font-size:1.15rem;margin-bottom:2px}
+.fb p{margin:6px 0 0}
+.fb ol{margin:6px 0 0;padding-left:1.4em}
+@keyframes pop{from{opacity:0;transform:translateY(5px)}}
+.actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px}
+.kbd{color:var(--muted);font-size:.88rem;margin:16px 0 0}
+@media (hover:none){.kbd{display:none}}
+
+/* hasil */
+.res-head{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.ring{position:relative;width:132px;height:132px;flex:none}
+.ring svg{display:block}
+.ring circle.fg{animation:ring 1s ease-out}
+@keyframes ring{from{stroke-dashoffset:339.29}}
+.ring .pct{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-d);font-weight:800;font-size:2rem}
+.res-txt{flex:1 1 240px;min-width:0}
+.res-txt h2{font-family:var(--font-d);font-weight:800;font-size:1.7rem;line-height:1.15;margin:0 0 6px}
+.res-txt p{margin:4px 0;color:var(--muted)}
+.res-txt .best{color:var(--ok);font-weight:700}
+h3{font-family:var(--font-d);font-weight:700;font-size:1.2rem;margin:26px 0 8px}
+.trow{display:grid;grid-template-columns:1fr auto;gap:4px 12px;margin:12px 0;font-weight:600}
+.trow .meter{grid-column:1/-1;height:10px;background:var(--bar);border-radius:6px;overflow:hidden}
+.trow .meter i{display:block;height:100%;background:var(--tc);border-radius:6px;transform-origin:left;animation:grow .8s ease-out}
+@keyframes grow{from{transform:scaleX(0)}}
+.trow span:last-child{font-variant-numeric:tabular-nums}
+.filters{display:flex;gap:8px;margin:0 0 10px;flex-wrap:wrap}
+.filters button{padding:7px 14px;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font-size:.95rem;font-weight:600;cursor:pointer}
+.filters button[aria-pressed="true"]{border-color:var(--edge);background:var(--titlebar)}
+details.rv{border:2px solid var(--line);border-radius:10px;background:var(--surface);margin:8px 0}
+details.rv summary{list-style:none;cursor:pointer;display:flex;gap:10px;align-items:flex-start;padding:12px 14px;font-weight:600;line-height:1.4}
+details.rv summary::-webkit-details-marker{display:none}
+.mk{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
+.mk.ok{background:var(--okbg);color:var(--ok)}
+.mk.bad{background:var(--badbg);color:var(--bad)}
+.rvb{padding:0 14px 14px 48px;line-height:1.5}
+.rvb p{margin:6px 0}
+.rvb ol{margin:6px 0;padding-left:1.4em}
+.rvb .expl{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span>Informatika SMK/MAK Kelas X, Semester 1</span>
+    <button class="icon-btn" id="theme" type="button" aria-label="Ganti tema terang atau gelap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      Tema
+    </button>
+  </div>
+  <main id="app"></main>
+  <div class="sr" id="live" aria-live="polite"></div>
+</div>
+
+<script>
+/* ---------- Data soal ---------- */
+const TOPICS={
+  kom:{n:'Aplikasi Media Komunikasi',c:'var(--c-kom)'},
+  cari:{n:'Mesin Pencari Informasi Digital',c:'var(--c-cari)'},
+  fitur:{n:'Fitur Lanjut Aplikasi Perkantoran',c:'var(--c-fitur)'},
+  int:{n:'Integrasi Aplikasi Office',c:'var(--c-int)'}
+};
+const Q=[];
+const mc=(t,q,a,w,e)=>Q.push({t,type:'mc',q,a,w,e});
+const tf=(t,q,v,e)=>Q.push({t,type:'tf',q,v,e});
+const od=(t,q,s,e)=>Q.push({t,type:'od',q,s,e});
+
+/* Aplikasi Media Komunikasi */
+mc('kom','Apa yang dimaksud dengan media komunikasi?','Alat atau aplikasi untuk menyampaikan dan bertukar informasi dari pengirim kepada penerima',['Perangkat lunak khusus untuk mengolah angka','Layanan komputer untuk mencari data di internet','Aplikasi untuk membuat presentasi'],'Media komunikasi adalah alat atau aplikasi yang dipakai untuk menyampaikan dan bertukar informasi dari pengirim kepada penerima.');
+mc('kom','Komunikasi daring sinkron adalah komunikasi yang...','Berlangsung serempak pada waktu yang sama',['Berlangsung tidak serempak','Hanya bisa dilakukan lewat surat elektronik','Tidak membutuhkan jaringan internet'],'Sinkron berarti serempak, misalnya video call atau rapat online. Asinkron berarti tidak serempak, misalnya pesan yang dibalas belakangan.');
+tf('kom','WhatsApp hanya bisa digunakan di smartphone dan tidak bisa dipakai di desktop.',false,'WhatsApp tidak hanya dipakai di smartphone, tetapi juga bisa dipakai di desktop. Telegram juga tersedia untuk perangkat seluler maupun desktop.');
+mc('kom','Aplikasi video conference yang bisa menampung banyak orang dan sangat mudah digunakan karena cukup membagikan serta bergabung lewat tautan (link) adalah...','Google Meet',['Telegram','Skype','Line'],'Google Meet menampung banyak orang dan peserta cukup membagikan serta bergabung lewat link.');
+mc('kom','Aplikasi chatting yang disebut memberi kualitas lebih bagus pada saat video call adalah...','Line',['WhatsApp','Telegram','Skype'],'Line adalah aplikasi chatting untuk bertukar video dan foto, serta video call dengan kualitas yang lebih bagus.');
+od('kom','Urutkan langkah melakukan panggilan grup di WhatsApp.',['Buka WhatsApp, lalu ketuk tab Panggilan','Ketuk ikon Telepon+','Pilih New group call','Pilih kontak yang diajak bergabung'],'Panggilan grup dimulai dari tab Panggilan, ikon Telepon+, lalu New group call, dan terakhir memilih kontak yang diajak.');
+mc('kom','Langkah pertama membuat rapat Google Meet lewat laptop adalah...','Buka Gmail, klik ikon Google Apps, lalu pilih Meet',['Buka Zoom lalu klik Sign In','Buka WhatsApp lalu pilih tab Panggilan','Buka PowerPoint lalu klik Insert'],'Di Gmail, klik ikon Google Apps lalu pilih Meet. Setelah itu klik Rapat baru dan pilih opsi waktu rapat.');
+mc('kom','Setelah rapat Google Meet dibuat, akan muncul link rapat. Link tersebut sebaiknya...','Dibagikan kepada peserta rapat',['Dihapus agar aman','Dijadikan sumber data di Excel','Diubah menjadi Heading 1'],'Link rapat dibagikan kepada peserta agar mereka bisa bergabung.');
+mc('kom','Pada Zoom Meeting, menu yang dipilih untuk menjadwalkan rapat setelah masuk ke akun adalah...','Schedule',['Join','Share Screen','Invite'],'Setelah masuk ke akun, pilih Schedule. Di sana kamu mengisi judul rapat, tanggal, jam mulai, dan jam berakhir.');
+od('kom','Urutkan langkah membuat rapat di Zoom lewat smartphone.',['Buka aplikasi Zoom','Sign In ke akun Zoom','Pilih Schedule','Isi judul, tanggal, dan jam lalu klik Done','Pilih Invite','Kirim undangan lewat Gmail, SMS, Messenger, atau chat'],'Alurnya: buka aplikasi, Sign In, Schedule, isi detail rapat lalu Done, kemudian Invite untuk mengirim undangan.');
+mc('kom','Menu Invite pada Zoom berfungsi untuk...','Mengirim undangan rapat ke rekan lewat Gmail, SMS, Messenger, atau chat',['Menentukan tanggal rapat','Masuk ke akun Zoom','Menghapus jadwal rapat'],'Menu Invite menyediakan beberapa pilihan untuk mengirim undangan rapat, seperti Gmail, SMS, Messenger, atau chat.');
+tf('kom','Zoom dan Google Meet sama-sama termasuk aplikasi video conference.',true,'Benar. Zoom juga dikenal memiliki kualitas suara dan gambar yang bagus.');
+
+/* Mesin Pencari */
+mc('cari','Cara berikut dapat dipakai untuk mencari informasi di dunia nyata, KECUALI...','Mengetik kata kunci di Google',['Membaca koran','Membaca surat kabar','Mewawancarai narasumber'],'Di dunia nyata informasi dicari lewat koran, surat kabar, atau wawancara dengan narasumber. Mengetik di Google adalah cara di internet.');
+mc('cari','Mesin pencari web adalah...','Layanan komputer untuk mencari data atau liputan yang tersimpan pada layanan www, ftp, publikasi milis, dan lainnya',['Aplikasi untuk mengolah angka','Aplikasi untuk membuat daftar isi','Perangkat keras untuk menyimpan data'],'Mesin pencari web adalah layanan komputer yang dibuat dan dipakai untuk mencari data atau liputan yang tersimpan pada layanan www, ftp, publikasi milis, dan lain-lain.');
+mc('cari','Kamu ingin mencari dokumen PDF tentang lagu daerah. Cara mengetik di Google yang benar adalah...','lagu daerah filetype:pdf',['lagu daerah filetype: pdf','lagu daerah site:pdf','define:lagu daerah pdf'],'Format filetype ditulis filetype:jenis dokumen, dengan titik dua tanpa spasi.');
+tf('cari','Penulisan filetype memakai spasi setelah titik dua, misalnya “filetype: pdf”.',false,'Salah. Titik dua ditulis tanpa spasi, yaitu filetype:pdf.');
+mc('cari','Apa hasil pencarian “songket site:id”?','Hanya situs web dari Indonesia yang terkait songket',['Semua dokumen PDF tentang songket','Arti kata songket','Situs web tentang songket dari seluruh dunia'],'Perintah site digunakan untuk menampilkan situs yang berasal dari negara tertentu. Kode id berarti Indonesia.');
+mc('cari','Tanda petik dua (“ ”) pada pencarian Google digunakan untuk...','Mencari informasi yang lebih spesifik pada kata atau kalimat yang diapit',['Mencari arti kata yang sedang tren','Membatasi hasil dari negara tertentu','Memfilter jenis dokumen'],'Tanda petik dua ditempatkan di awal dan akhir kata atau kalimat, misalnya “teknologi informasi dan komunikasi”, supaya hasilnya lebih spesifik.');
+mc('cari','Perintah yang dipakai di Google untuk mencari arti kata-kata yang sedang tren adalah...','define',['filetype','site','tanda petik dua'],'Define digunakan untuk mencari arti dari kata-kata yang sedang tren saat ini.');
+tf('cari','Menggunakan kata kunci, misalnya “swalayan terdekat”, adalah trik paling mudah dan cepat untuk mencari di Google.',true,'Benar. Kata kunci adalah cara paling mudah dan cepat dalam melakukan pencarian di Google.');
+mc('cari','Mesin pencari informasi digital terbesar kedua setelah Google adalah...','Bing',['Yahoo! Search','Firefox','Telegram'],'Bing adalah mesin pencari besutan Microsoft dan menjadi yang terbesar kedua setelah Google.');
+mc('cari','Salah satu kelebihan Bing adalah...','Gambar yang ditampilkan lebih banyak dan detail',['Bisa membuat daftar isi otomatis','Hanya menampilkan situs dari Indonesia','Khusus untuk mencari file PDF'],'Kelebihan Bing adalah gambar yang ditampilkan pada mesin pencari lebih banyak dan detail.');
+tf('cari','Bing merupakan mesin pencari besutan Microsoft.',true,'Benar. Bing dibuat oleh Microsoft.');
+mc('cari','Selain untuk mencari, layanan Yahoo! Search juga bisa dipakai untuk...','Email, portal berita online, belanja online, dan permainan',['Membuat Mail Merge','Menghubungkan objek dengan OLE','Membuat hyperlink pada slide'],'Yahoo! Search tidak hanya mesin pencari, tetapi juga bisa dipakai untuk email, portal berita online, belanja online, permainan, dan lain-lain.');
+
+/* Fitur Lanjut Aplikasi Perkantoran */
+mc('fitur','Fungsi Table of Contents pada Microsoft Word adalah...','Membuat daftar isi dari garis besar isi dokumen',['Membuat banyak tulisan dengan format yang sama','Menyisipkan grafik dari Excel','Menghubungkan slide dengan website'],'Table of Contents dipakai untuk membuat daftar isi dari garis besar isi dokumen yang sudah dibuat.');
+mc('fitur','Agar judul bab masuk ke daftar isi, judul tersebut diberi style...','Heading 1',['Heading 2','Heading 3','Normal'],'Judul bab memakai Heading 1, sub bab memakai Heading 2, dan sub bab berikutnya memakai Heading 3.');
+mc('fitur','Judul sub bab pada dokumen diberi style...','Heading 2',['Heading 1','Heading 3','Insert Merge Field'],'Sub bab memakai Heading 2. Jika masih ada sub bab lagi, gunakan Heading 3.');
+mc('fitur','Format heading berubah dan tidak sesuai keinginan. Cara mengubahnya adalah...','Klik kanan pada Style lalu pilih Modify',['Klik Update Table','Pilih Mailings lalu Preview Results','Pilih Paste Special'],'Lewat Modify kamu bisa mengubah jenis huruf, ukuran, dan format lainnya pada style heading.');
+od('fitur','Urutkan langkah membuat daftar isi otomatis di Word.',['Tandai judul bab dengan Heading 1','Tandai sub bab dengan Heading 2','Atur format heading lewat Modify jika perlu','Letakkan kursor di teks teratas','Pilih References, lalu Table of Contents, dan pilih formatnya'],'Beri tanda heading dulu pada seluruh judul, rapikan format bila perlu, baru buat daftar isinya dari menu References.');
+mc('fitur','Fungsi Update Table pada Table of Contents adalah...','Menyinkronkan daftar isi dengan perubahan terbaru di dalam dokumen',['Menghapus seluruh daftar isi','Mengganti nama file dokumen','Membuat heading baru secara otomatis'],'Update Table dipakai untuk memperbarui daftar isi, misalnya jika kamu menghapus satu judul bab atau sub bab.');
+mc('fitur','Menu untuk melakukan Update Table adalah...','References – Update Table',['Home – Update Table','Insert – Update Table','Mailings – Update Table'],'Update Table ada di tab References, dekat dengan Table of Contents.');
+mc('fitur','Mail Merge digunakan untuk...','Membuat tulisan yang banyak dengan format sama secara lebih cepat dan praktis',['Menjadwalkan rapat online','Mencari dokumen PDF di internet','Membuat video presentasi'],'Mail Merge cocok untuk dokumen massal, misalnya sertifikat untuk banyak peserta workshop.');
+mc('fitur','Dua jenis file yang harus disiapkan untuk membuat Mail Merge adalah...','Sumber data di Excel dan naskah utama di Word',['Dua file PowerPoint','Naskah utama di Excel dan sumber data di PowerPoint','Dua file PDF'],'Satu file berupa sumber data yang dibuat di Excel, satu lagi naskah utama yang dibuat di Word.');
+mc('fitur','Untuk menghubungkan naskah utama dengan data sumber, menu yang dipilih adalah...','Mailings – Start Mail Merge – E-Mail Messages',['References – Table of Contents','Insert – Chart','Home – Paste Special'],'Langkah ini dilakukan lewat tab Mailings, bukan References, Insert, atau Home.');
+mc('fitur','Untuk memilih file Excel sebagai sumber data pada Mail Merge, kamu memakai...','Select Recipients – Use Existing List',['Insert Merge Field','Preview Results','Update Table'],'Pilih Select Recipients lalu Use Existing List, kemudian pilih file Excel dan sheet yang sesuai.');
+mc('fitur','Sub menu yang dipakai untuk menaruh kolom (misalnya NAMA LENGKAP) pada naskah utama adalah...','Insert Merge Field',['Select Recipients','Next Record','Heading 1'],'Letakkan kursor di tempat nama peserta, lalu pilih Insert Merge Field dan klik kolom yang diinginkan.');
+mc('fitur','Untuk melihat hasil Mail Merge dan mengecek nama peserta yang lain, kamu memakai...','Preview Results lalu Next Record atau Previous Record',['Insert Merge Field lalu Update Table','Paste Special lalu Paste Link','Existing File or Web Page'],'Preview Results menampilkan hasil, sedangkan Next Record dan Previous Record berpindah ke data lain.');
+od('fitur','Urutkan langkah membuat sertifikat dengan Mail Merge.',['Buat sumber data nama peserta di Excel','Buat naskah utama (desain sertifikat) di Word','Hubungkan lewat Mailings – Start Mail Merge – E-Mail Messages','Pilih Select Recipients – Use Existing List, lalu pilih file dan sheet','Letakkan kursor dan pilih Insert Merge Field','Klik Preview Results untuk melihat hasil'],'Siapkan dua file dulu, hubungkan keduanya, masukkan kolom, lalu cek hasilnya dengan Preview Results.');
+
+/* Integrasi Aplikasi Office */
+mc('int','Integrasi dalam aplikasi perkantoran berarti...','Menggabungkan beberapa objek, data, atau komponen ke dalam sesuatu yang bermakna',['Menghapus data yang sudah lama','Mencari data di internet','Mengirim pesan ke banyak orang sekaligus'],'Integrasi adalah menggabungkan beberapa objek, data, atau komponen menjadi sesuatu yang bermakna.');
+mc('int','K3L adalah kepanjangan dari...','Kesehatan, Keselamatan Kerja, dan Lingkungan',['Komputer, Kabel, Layar, dan Listrik','Keamanan, Kenyamanan, Kerapian, dan Lingkungan','Kesehatan, Kerja, Latihan, dan Laboratorium'],'Aspek K3L perlu diperhatikan saat memakai perangkat komputer, misalnya posisi duduk dan pencahayaan layar.');
+mc('int','Jarak pandang minimal ke layar saat memakai komputer adalah...','40 cm',['10 cm','20 cm','100 cm'],'Duduklah tegak dengan leher lurus dan jarak pandang minimal 40 cm.');
+mc('int','Saat duduk di depan komputer, kaki menapak di lantai dengan lutut menekuk...','90°',['45°','120°','180°'],'Gunakan kursi yang nyaman dan posisi kaki menapak di lantai dengan lutut menekuk 90°.');
+mc('int','OLE adalah kepanjangan dari...','Object Linking and Embedding',['Online Learning Environment','Object Loading and Editing','Office Link and Export'],'OLE adalah fitur pada Ms. Office untuk menggabungkan objek dari aplikasi lain, misalnya data Excel ke Word.');
+mc('int','Objek Excel ditempel ke Word dengan cara linking. Jika data di Excel diubah, objek di Word akan...','Ikut berubah',['Tidak berubah','Terhapus','Berubah menjadi gambar'],'Pada linking, perubahan data sumber ikut memengaruhi objek yang ditempel.');
+mc('int','Objek Excel ditempel ke Word dengan cara embedding. Jika data sumber diubah, objek di Word akan...','Tidak terpengaruh',['Ikut berubah otomatis','Terhapus','Berubah menjadi tabel PowerPoint'],'Pada embedding (hanya menempelkan), data pada sumber objek tidak berpengaruh pada objek yang sudah ditempel.');
+mc('int','Pada kotak dialog Paste Special, pilihan yang dipakai untuk menghubungkan (linking) data adalah...','Paste Link',['Paste','Display as icon','Cancel'],'Pilih Paste Link untuk linking. Pilih Paste jika hanya ingin menempelkan (embedding).');
+mc('int','Pada Paste Special, jenis objek yang dipilih untuk menempelkan data tabel Excel adalah...','Microsoft Excel Worksheet Object',['Unformatted Text','Bitmap','HTML Format'],'Pilih jenis objek yang sesuai dengan file yang dimasukkan, yaitu Microsoft Excel Worksheet Object.');
+mc('int','Pada objek hasil linking, ketika objek di Word diklik 2 kali, yang terjadi adalah...','Tampilan menuju data sumber di Ms. Excel',['Objek terhapus','Objek berubah menjadi slide PowerPoint','Muncul daftar isi otomatis'],'Klik dua kali pada objek hasil linking akan membawamu ke data sumber di Ms. Excel.');
+tf('int','Pada embedding, kamu bisa mengubah data hasil tempelan langsung di dalam worksheet Ms. Word.',true,'Benar. Klik dua kali untuk mengedit, lalu klik dua kali lagi untuk kembali ke tampilan awal (hanya Word).');
+mc('int','Menu untuk memasukkan tabel Excel ke dalam PowerPoint adalah...','Insert – Table – Excel Spreadsheet',['Mailings – Insert Merge Field','References – Table of Contents','Insert – Hyperlink – Place in This Document'],'Tabel Excel akan muncul di slide dan bisa dipakai dengan fitur lengkap Excel.');
+mc('int','Untuk membuat diagram atau grafik di Ms. Word, menu yang dipilih adalah...','Insert – Chart',['References – Chart','Mailings – Chart','Design – Hyperlink'],'Pilih Insert – Chart, tentukan jenis diagram, lalu isi data pada worksheet Excel yang muncul.');
+mc('int','Untuk menautkan teks pada slide ke slide lain dalam file yang sama, pilihan Hyperlink yang dipakai adalah...','Place in This Document',['Existing File or Web Page','Create New Document','E-mail Address'],'Blok teks, pilih Insert – Hyperlink, lalu Place in This Document dan pilih slide tujuannya.');
+mc('int','Untuk menautkan teks pada slide ke website atau dokumen di luar file PowerPoint, kamu memilih...','Existing File or Web Page',['Place in This Document','Paste Link','Update Table'],'Existing File or Web Page menghubungkan slide dengan dokumen lain atau website di luar file PowerPoint.');
+mc('int','Video hasil presentasi PowerPoint pada materi pengayaan disimpan dalam format...','MP4',['DOCX','XLSX','PDF'],'Video presentasi dari PowerPoint disimpan dengan format MP4.');
+mc('int','Aplikasi Microsoft yang paling sesuai untuk mengolah angka dan membuat grafik adalah...','Microsoft Excel',['Microsoft Word','Microsoft PowerPoint','Microsoft Windows'],'Excel adalah aplikasi pengolah angka. Word untuk teks dan dokumen, PowerPoint untuk presentasi.');
+od('int','Urutkan langkah menghubungkan (Paste Link) tabel Excel ke Word.',['Buka file Excel, blok data, lalu klik kanan dan pilih Copy','Buka Ms. Word dan pastikan berada di menu Home','Pilih Paste lalu Paste Special','Pilih Paste Link, lalu Microsoft Excel Worksheet Object','Klik OK'],'Salin dulu data dari Excel, lalu di Word buka Paste Special dan pilih Paste Link dengan jenis objek yang sesuai.');
+
+/* ---------- Util ---------- */
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const L=['A','B','C','D'];
+const I={
+  ok:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  bad:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  chk:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
+};
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function getBest(){try{return JSON.parse(localStorage.getItem('tik-quiz-best')||'null')}catch(e){return null}}
+function setBest(p){try{localStorage.setItem('tik-quiz-best',JSON.stringify({p}))}catch(e){}}
+function say(t){$('#live').textContent='';setTimeout(()=>{$('#live').textContent=t},30)}
+function topTop(){const r=matchMedia('(prefers-reduced-motion: reduce)').matches;window.scrollTo({top:0,behavior:r?'auto':'smooth'})}
+
+/* ---------- State ---------- */
+let S={topics:new Set(Object.keys(TOPICS)),count:10,mode:'latihan'};
+let G=null;
+const pool=()=>Q.filter(q=>S.topics.has(q.t));
+const effCount=()=>{const n=pool().length;return S.count==='all'?n:Math.min(S.count,n)};
+
+function prep(src){
+  const o={src,t:src.t,type:src.type,q:src.q,e:src.e,sel:null,locked:false,ok:null};
+  if(src.type==='mc'){o.opts=shuffle([{x:src.a,ok:true},...src.w.map(x=>({x,ok:false}))])}
+  else if(src.type==='tf'){o.opts=[{x:'Benar',ok:src.v===true},{x:'Salah',ok:src.v===false}]}
+  else{o.s=src.s;o.items=shuffle(src.s.map((x,i)=>({x,i})));o.sel=[]}
+  return o;
+}
+const answered=o=>o.type==='od'?o.sel.length===o.items.length:o.sel!==null;
+function evalQ(o){
+  if(o.type==='od')return o.sel.length===o.items.length&&o.sel.every((pos,k)=>o.items[pos].i===k);
+  return o.sel!==null&&o.opts[o.sel].ok;
+}
+function lock(o){o.locked=true;o.ok=evalQ(o)}
+
+/* render dengan menjaga fokus */
+function render(fn){
+  const a=document.activeElement;
+  const key=a&&a.dataset&&a.dataset.act?[a.dataset.act,a.dataset.v||'']:null;
+  fn();
+  if(key){
+    const el=app.querySelector(`[data-act="${key[0]}"]${key[1]!==''?`[data-v="${key[1]}"]`:':not([data-v])'}`);
+    if(el&&!el.disabled)el.focus({preventScroll:true});
+  }
+}
+
+/* ---------- Layar: pengaturan ---------- */
+function renderStart(){
+  G=null;
+  const counts={};Q.forEach(q=>counts[q.t]=(counts[q.t]||0)+1);
+  const n=pool().length,eff=effCount(),best=getBest();
+  const cards=Object.keys(TOPICS).map(k=>`
+    <button type="button" class="tcard" style="--tc:${TOPICS[k].c}" data-act="topic" data-v="${k}" aria-pressed="${S.topics.has(k)}">
+      <span class="box">${I.chk}</span>
+      <span><b>${TOPICS[k].n}</b><small>${counts[k]} soal</small></span>
+    </button>`).join('');
+  const cnt=[10,20,'all'].map(c=>`<button type="button" role="radio" data-act="count" data-v="${c}" aria-checked="${S.count===c}">${c==='all'?`Semua (${n})`:c+' soal'}</button>`).join('');
+  const mode=[['latihan','Latihan','Jawaban langsung dibahas setelah kamu memilih.'],['ujian','Ujian','Pembahasan baru muncul di akhir, seperti ulangan sungguhan.']].map(m=>`
+    <button type="button" role="radio" data-act="mode" data-v="${m[0]}" aria-checked="${S.mode===m[0]}"><b>${m[1]}</b><span>${m[2]}</span></button>`).join('');
+  app.innerHTML=`
+    <h1>Latihan soal TIK</h1>
+    <p class="lead">Bab 2 Teknologi Informasi dan Komunikasi: aplikasi komunikasi, mesin pencari, fitur lanjut perkantoran, dan integrasi Office. Ada ${Q.length} soal yang diacak setiap kali kamu mulai.</p>
+    <section class="win" aria-label="Pengaturan kuis">
+      <div class="tb"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ttl">Pengaturan kuis</span></div>
+      <div class="body">
+        <fieldset><legend>Materi yang diuji</legend><div class="topic-grid">${cards}</div></fieldset>
+        <fieldset><legend>Jumlah soal</legend><div class="seg" role="radiogroup" aria-label="Jumlah soal">${cnt}</div>
+          <p class="note">${eff?`Kamu akan mengerjakan ${eff} soal.`:'Pilih minimal satu materi.'}</p></fieldset>
+        <fieldset><legend>Mode</legend><div class="modes" role="radiogroup" aria-label="Mode">${mode}</div></fieldset>
+        <div class="row">
+          <button type="button" class="btn" data-act="start" ${eff?'':'disabled'}>Mulai kuis, ${eff} soal</button>
+          ${best?`<span class="note" style="margin:0">Skor terbaikmu: <b>${best.p}%</b></span>`:''}
+        </div>
+      </div>
+    </section>`;
+}
+
+/* ---------- Layar: kuis ---------- */
+function fbHTML(o){
+  let d='';
+  if(!o.ok){
+    d=o.type==='od'
+      ?`<p>Urutan yang benar:</p><ol>${o.s.map(x=>`<li>${x}</li>`).join('')}</ol>`
+      :`<p>Jawaban yang benar: <b>${o.opts.find(p=>p.ok).x}</b></p>`;
+  }
+  return `<div class="fb ${o.ok?'ok':'bad'}"><strong>${o.ok?'Benar':'Belum tepat'}</strong>${d}<p>${o.e}</p></div>`;
+}
+function renderQuiz(){
+  render(()=>{
+    const o=G.list[G.i],n=G.list.length,T=TOPICS[o.t],lat=G.mode==='latihan',last=G.i===n-1;
+    const strip=G.list.map((q,k)=>{
+      let c=q.locked?(lat?(q.ok?'ok':'bad'):'ans'):(!lat&&answered(q)?'ans':'');
+      if(k===G.i)c='cur '+(q.locked&&lat?c:'');
+      return `<i class="${c}"></i>`;
+    }).join('');
+    const done=G.list.filter(q=>q.locked);
+    const sc=lat?`Benar ${done.filter(q=>q.ok).length} dari ${done.length} yang dijawab`:'Pembahasan muncul di akhir';
+    const frozen=o.locked&&lat;
+    let body='';
+    if(o.type==='od'){
+      const placed=o.sel.map((pos,k)=>{
+        const it=o.items[pos];let cls='chip',st='';
+        if(frozen){const r=it.i===k;cls+=r?' ok':' bad';st=r?I.ok:I.bad}
+        return `<li><button type="button" class="${cls}" data-act="unpick" data-v="${pos}" ${frozen?'disabled':''}><span class="n">${k+1}</span><span>${it.x}</span><span class="st">${st}</span></button></li>`;
+      }).join('');
+      const rest=o.items.map((it,pos)=>o.sel.includes(pos)?'':`<li><button type="button" class="chip" data-act="pick" data-v="${pos}" ${frozen?'disabled':''}><span>${it.x}</span></button></li>`).join('');
+      body=`<p class="hint">Ketuk langkah untuk memasukkannya ke urutan. Ketuk lagi untuk mengeluarkannya.</p>
+        <p class="lab" id="lab1">Urutan kamu</p>
+        <ol class="slot" aria-labelledby="lab1">${placed||'<li class="empty">Ketuk langkah di bawah sesuai urutan yang benar.</li>'}</ol>
+        <p class="lab" id="lab2">Langkah yang tersedia</p>
+        <ul class="pool" aria-labelledby="lab2">${rest||'<li class="empty">Semua langkah sudah dipakai.</li>'}</ul>`;
+    }else{
+      const opts=o.opts.map((p,k)=>{
+        let cls='opt',st='';
+        if(frozen){if(p.ok){cls+=' ok';st=I.ok}else if(o.sel===k){cls+=' bad';st=I.bad}else cls+=' dim'}
+        return `<li><button type="button" class="${cls}" data-act="opt" data-v="${k}" aria-pressed="${o.sel===k}" ${frozen?'disabled':''}><span class="k">${L[k]}</span><span>${p.x}</span><span class="st">${st}</span></button></li>`;
+      }).join('');
+      body=(o.type==='tf'?'<p class="hint">Benar atau salah?</p>':'')+`<ul class="opts">${opts}</ul>`;
+    }
+    let primary;
+    if(lat&&o.type==='od'&&!o.locked){
+      primary=`<button type="button" class="btn" data-act="check" ${answered(o)?'':'disabled'}>Periksa jawaban</button>`;
+    }else{
+      const can=lat?o.locked:answered(o);
+      primary=`<button type="button" class="btn" data-act="next" ${can?'':'disabled'}>${last?'Lihat hasil':'Lanjut'}</button>`;
+    }
+    app.innerHTML=`
+      <div class="strip" role="img" aria-label="Soal ${G.i+1} dari ${n}">${strip}</div>
+      <div class="scoreline"><span>${lat?'Mode latihan':'Mode ujian'}</span><span>${sc}</span></div>
+      <section class="win" aria-label="Soal ${G.i+1}">
+        <div class="tb"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="ttl"><i class="sw" style="--tc:${T.c}"></i>${T.n}</span>
+          <span class="meta">${G.i+1}/${n}</span></div>
+        <div class="body">
+          <h2 class="q">${o.q}</h2>
+          ${body}
+          ${frozen?fbHTML(o):''}
+          <div class="actions"><button type="button" class="link-btn" data-act="quit">Berhenti</button>${primary}</div>
+          ${o.type!=='od'?'<p class="kbd">Tekan 1 sampai 4 (atau A sampai D) untuk memilih jawaban, Enter untuk lanjut.</p>':''}
+        </div>
+      </section>`;
+  });
+}
+
+/* ---------- Layar: hasil ---------- */
+function yours(o){return o.type==='od'?o.sel.map(p=>o.items[p].x):[o.opts[o.sel].x]}
+function ansHTML(o){
+  if(o.type==='od'){
+    const y=`<ol>${yours(o).map(x=>`<li>${x}</li>`).join('')}</ol>`;
+    const c=`<ol>${o.s.map(x=>`<li>${x}</li>`).join('')}</ol>`;
+    return o.ok?`<p>Urutanmu sudah benar:</p>${c}`:`<p>Urutanmu:</p>${y}<p>Urutan yang benar:</p>${c}`;
+  }
+  const c=o.opts.find(p=>p.ok).x;
+  return o.ok?`<p>Jawabanmu benar: <b>${c}</b></p>`:`<p>Jawabanmu: ${yours(o)[0]}</p><p>Jawaban yang benar: <b>${c}</b></p>`;
+}
+function reviewHTML(){
+  const list=G.list.filter(o=>G.filter==='all'||!o.ok);
+  if(!list.length)return '<p class="note">Tidak ada soal yang salah. Mantap!</p>';
+  return list.map(o=>`<details class="rv"><summary><span class="mk ${o.ok?'ok':'bad'}">${o.ok?I.ok:I.bad}</span><span>${o.q}</span></summary>
+    <div class="rvb">${ansHTML(o)}<p class="expl">${o.e}</p></div></details>`).join('');
+}
+function renderResult(){
+  G.done=true;G.filter=G.filter||'all';
+  const n=G.list.length,right=G.list.filter(o=>o.ok).length,wrong=n-right,p=Math.round(right/n*100);
+  const prev=getBest();let fresh=false;
+  if(n>=10&&(!prev||p>prev.p)){fresh=!!prev&&p>prev.p;setBest(p)}
+  const best=getBest();
+  const col=p>=75?'var(--ok)':p>=50?'var(--c-fitur)':'var(--bad)';
+  const title=p>=90?'Luar biasa, materimu sudah kuat':p>=75?'Bagus, tinggal sedikit lagi':p>=60?'Cukup baik, ulangi bagian yang masih salah':'Masih perlu belajar, baca ulang babnya lalu coba lagi';
+  const off=(339.29*(1-p/100)).toFixed(2);
+  const rows=Object.keys(TOPICS).map(k=>{
+    const l=G.list.filter(o=>o.t===k);if(!l.length)return '';
+    const r=l.filter(o=>o.ok).length;
+    return `<div class="trow" style="--tc:${TOPICS[k].c}"><span>${TOPICS[k].n}</span><span>${r}/${l.length}</span><div class="meter"><i style="width:${Math.round(r/l.length*100)}%"></i></div></div>`;
+  }).join('');
+  app.innerHTML=`
+    <section class="win" aria-label="Hasil kuis">
+      <div class="tb"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ttl">Hasil kuis</span><span class="meta">${G.mode==='latihan'?'Latihan':'Ujian'}</span></div>
+      <div class="body">
+        <div class="res-head">
+          <div class="ring"><svg width="132" height="132" viewBox="0 0 132 132" aria-hidden="true">
+            <circle cx="66" cy="66" r="54" fill="none" stroke="var(--bar)" stroke-width="12"/>
+            <circle class="fg" cx="66" cy="66" r="54" fill="none" stroke="${col}" stroke-width="12" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="${off}" transform="rotate(-90 66 66)"/></svg>
+            <div class="pct">${p}%</div></div>
+          <div class="res-txt">
+            <h2>${title}</h2>
+            <p>Kamu menjawab benar ${right} dari ${n} soal.</p>
+            ${fresh?'<p class="best">Skor terbaik baru!</p>':(best&&n>=10?`<p>Skor terbaikmu: ${best.p}%</p>`:'')}
+          </div>
+        </div>
+        <h3>Hasil per materi</h3>
+        ${rows}
+        <div class="row" style="margin-top:22px">
+          ${wrong?`<button type="button" class="btn" data-act="retry">Ulangi ${wrong} soal yang salah</button>`:''}
+          <button type="button" class="btn ghost" data-act="again">Kuis baru</button>
+          <button type="button" class="link-btn" data-act="settings">Ubah pengaturan</button>
+        </div>
+        <h3>Pembahasan</h3>
+        <div class="filters">
+          <button type="button" data-act="filter" data-v="all" aria-pressed="${G.filter==='all'}">Semua soal</button>
+          <button type="button" data-act="filter" data-v="wrong" aria-pressed="${G.filter==='wrong'}">Yang salah saja</button>
+        </div>
+        <div id="review">${reviewHTML()}</div>
+      </div>
+    </section>`;
+}
+
+/* ---------- Aksi ---------- */
+function startGame(srcList){
+  G={list:srcList.map(prep),i:0,mode:S.mode,done:false,filter:'all'};
+  renderQuiz();topTop();
+}
+function nextQ(){
+  const o=G.list[G.i];
+  if(!o.locked){if(!answered(o))return;lock(o)}
+  if(G.i>=G.list.length-1){renderResult()}else{G.i++;renderQuiz()}
+  topTop();
+}
+function act(a,v){
+  if(a==='topic'){S.topics.has(v)?S.topics.delete(v):S.topics.add(v);render(renderStart);return}
+  if(a==='count'){S.count=v==='all'?'all':+v;render(renderStart);return}
+  if(a==='mode'){S.mode=v;render(renderStart);return}
+  if(a==='start'||a==='again'){startGame(shuffle(pool()).slice(0,effCount()));return}
+  if(a==='settings'||a==='quit'){renderStart();topTop();return}
+  if(a==='retry'){startGame(G.list.filter(o=>!o.ok).map(o=>o.src));return}
+  if(a==='filter'){G.filter=v;render(()=>{document.querySelectorAll('[data-act="filter"]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));$('#review').innerHTML=reviewHTML()});return}
+  if(!G)return;
+  const o=G.list[G.i],lat=G.mode==='latihan';
+  if(a==='opt'){
+    if(o.locked&&lat)return;
+    o.sel=+v;
+    if(lat){lock(o);say((o.ok?'Benar. ':'Belum tepat. ')+o.e)}
+    renderQuiz();
+    if(lat){const nb=app.querySelector('[data-act="next"]');if(nb)nb.focus()}
+    return;
+  }
+  if(a==='pick'){if(!o.locked){const p=+v;if(!o.sel.includes(p))o.sel.push(p);renderQuiz()}return}
+  if(a==='unpick'){if(!o.locked){o.sel=o.sel.filter(p=>p!==+v);renderQuiz()}return}
+  if(a==='check'){
+    if(!answered(o))return;lock(o);say((o.ok?'Benar. ':'Belum tepat. ')+o.e);
+    renderQuiz();const nb=app.querySelector('[data-act="next"]');if(nb)nb.focus();return;
+  }
+  if(a==='next'){nextQ();return}
+}
+app.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');
+  if(!b||b.disabled)return;
+  act(b.dataset.act,b.dataset.v);
+});
+document.addEventListener('keydown',e=>{
+  if(!G||G.done||e.metaKey||e.ctrlKey||e.altKey)return;
+  const o=G.list[G.i];
+  if(o.type!=='od'&&e.key.length===1){
+    const k=e.key.toLowerCase();
+    let i=('1234'.indexOf(k));if(i<0)i='abcd'.indexOf(k);
+    if(i>=0&&i<o.opts.length&&!(o.locked&&G.mode==='latihan')){act('opt',i);e.preventDefault();return}
+  }
+  if(e.key==='Enter'&&document.activeElement===document.body){
+    const b=app.querySelector('[data-act="next"]:not([disabled]),[data-act="check"]:not([disabled])');
+    if(b){b.click();e.preventDefault()}
+  }
+});
+
+/* ---------- Tema ---------- */
+try{const t=localStorage.getItem('tik-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+const curTheme=()=>document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+$('#theme').addEventListener('click',()=>{
+  const t=curTheme()==='dark'?'light':'dark';
+  document.documentElement.dataset.theme=t;
+  try{localStorage.setItem('tik-theme',t)}catch(e){}
+});
+
+renderStart();
+</script>
+</body>
+</html>
